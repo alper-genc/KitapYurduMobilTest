@@ -8,3 +8,4 @@ Feature: Kitap Arama Senaryosu
     Given Ara sekmesine tıkla
     When Arama kutusuna "Suç ve Ceza" yaz
     Then Arama sonuçları listelenmelidir
+    And Arama sonucuna "Suç ve Ceza" tıkla

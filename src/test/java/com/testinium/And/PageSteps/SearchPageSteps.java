@@ -4,6 +4,7 @@ import com.testinium.And.Pages.SearchPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.And;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,12 @@ public class SearchPageSteps {
         log.info("Arama sonuçları kontrol ediliyor...");
         // Şimdilik sadece log, sonuç kontrolü için element bilgisi eklendiğinde implement edilecek
         log.info("Arama işlemi tamamlandı.");
+    }
+
+    @And("Arama sonucuna {string} tıkla")
+    public void arama_sonucuna_tikla(String searchText) {
+        log.info("Arama sonucuna tıklanıyor: " + searchText);
+        searchPage.clickSearchResult(searchText);
     }
 }
 
