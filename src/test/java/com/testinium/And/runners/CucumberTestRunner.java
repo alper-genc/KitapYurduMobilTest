@@ -13,7 +13,7 @@ import io.cucumber.testng.CucumberOptions;
                 "junit:target/cucumber-reports/Cucumber.xml",
                 "html:target/cucumber-reports/cucumber-html-reports.html"
         },
-        tags = "@smoke",
+        tags = "@arama or @smoke",
         publish = true
 )
 public class CucumberTestRunner extends AbstractTestNGCucumberTests {

@@ -32,6 +32,12 @@ public class ExcelUtil {
 
     public void createReportSheet(String domainName, String testCaseName, Boolean isFailed, String failMessage, String ssLink, String loginData, String startTime, String duration){
         try {
+            // Klasör yoksa oluştur
+            File reportDir = new File("reports/excel");
+            if (!reportDir.exists()) {
+                reportDir.mkdirs();
+            }
+            
             XSSFWorkbook wb;
             if (isTodaysReportExists()) {
                 FileInputStream inputStream = new FileInputStream(currentFileName());
