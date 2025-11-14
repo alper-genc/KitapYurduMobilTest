@@ -1,12 +1,12 @@
 package com.testinium.And.PageElement;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openqa.selenium.WebElement;
 
 public class TestiniumLabel extends PageElementModel {
-    private static final Log log = LogFactory.getLog(TestiniumButton.class);
+    private static final Logger log = LoggerFactory.getLogger(TestiniumButton.class);
     public TestiniumLabel(selectorNames selectorName, String selectorValue) {
         super(selectorName, selectorValue);
     }

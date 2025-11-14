@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gauge-test" />
         <module name="untitled" />
+        <module name="kitapyurdu-mobile-automation" />
       </profile>
     </annotationProcessing>
   </component>

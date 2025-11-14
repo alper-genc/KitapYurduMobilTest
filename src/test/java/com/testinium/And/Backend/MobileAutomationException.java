@@ -2,8 +2,8 @@ package com.testinium.And.Backend;
 
 import com.testinium.And.Util.Driver.Driver;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MobileAutomationException extends RuntimeException{
-    private static final Log log = LogFactory.getLog(MobileAutomationException.class);
+    private static final Logger log = LoggerFactory.getLogger(MobileAutomationException.class);
 
     public MobileAutomationException (String message){
         super(message);

@@ -4,8 +4,8 @@ import com.testinium.And.Backend.MobileAutomationException;
 import com.testinium.And.Util.Driver.Driver;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,7 +27,7 @@ public abstract class PageElementModel {
     Integer timeout = 15;
     public enum selectorNames {XPATH, ID, NAME, CLASS_NAME, BOUNDS};
     protected static WebDriverWait webDriverWait;
-    private static final Log log = LogFactory.getLog(TestiniumButton.class);
+    private static final Logger log = LoggerFactory.getLogger(TestiniumButton.class);
 
     public PageElementModel(selectorNames selectorName, String selectorValue) {
         switch (selectorName) {

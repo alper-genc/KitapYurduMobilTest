@@ -1,6 +1,9 @@
 package com.testinium.And.Util.Report;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -117,7 +120,7 @@ public class ExcelUtil {
         headerFont.setBold(true);
         CellStyle headerCellStyle = sheet.getWorkbook().createCellStyle();
         headerCellStyle.setFont(headerFont);
-        headerCellStyle.setBorderBottom(CellStyle.BORDER_MEDIUM);
+        headerCellStyle.setBorderBottom(BorderStyle.MEDIUM);
         domainHeaderCell.setCellStyle(headerCellStyle);
         testCaseHeaderCell.setCellStyle(headerCellStyle);
         runCountHeaderCell.setCellStyle(headerCellStyle);
@@ -190,7 +193,7 @@ public class ExcelUtil {
         if(!isFailed){
             ssLinkCell.setCellValue("-");
         } else {
-            Hyperlink ssHyperLink = row.getSheet().getWorkbook().getCreationHelper().createHyperlink(Hyperlink.LINK_FILE);
+            Hyperlink ssHyperLink = row.getSheet().getWorkbook().getCreationHelper().createHyperlink(HyperlinkType.FILE);
             ssHyperLink.setAddress(new File(ssLink).toURI().toString());
             ssLinkCell.setCellValue("Screenshot");
             ssLinkCell.setHyperlink(ssHyperLink);
@@ -238,7 +241,7 @@ public class ExcelUtil {
     private void setPassedStatusStyle(Cell statusCell){
         CellStyle statusCellStyle = statusCell.getSheet().getWorkbook().createCellStyle();
         statusCellStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
-        statusCellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        statusCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         Font statusCellFont = statusCell.getSheet().getWorkbook().createFont();
         statusCellFont.setColor(IndexedColors.WHITE.getIndex());
         statusCellStyle.setFont(statusCellFont);
@@ -248,7 +251,7 @@ public class ExcelUtil {
     private void setFailedStatusStyle(Cell statusCell){
         CellStyle statusCellStyle = statusCell.getSheet().getWorkbook().createCellStyle();
         statusCellStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
-        statusCellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        statusCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         Font statusCellFont = statusCell.getSheet().getWorkbook().createFont();
         statusCellFont.setColor(IndexedColors.WHITE.getIndex());
         statusCellStyle.setFont(statusCellFont);

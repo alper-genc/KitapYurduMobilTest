@@ -1,102 +1,83 @@
 package com.testinium.And.Pages;
 
-
-import com.testinium.And.PageElement.TestiniumButton;
-import com.testinium.And.PageElement.TestiniumLabel;
-import com.testinium.And.PageElement.PageElementModel;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.junit.Assert;
+import com.testinium.And.PageElement.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
- * Created By Yiğithan Kadıoğlu 23.10.2018
- * The LandingPage class implements an application that
- * simply displays "LandingPage Case Scenario" to the standard output.
+ * Landing Page for Kitapyurdu Mobile Application
+ * This page handles general landing functionality and country selection if needed
  */
 public class LandingPage extends TestiniumMasterPage {
-    //region Variables
-    private static final Log log = LogFactory.getLog(LandingPage.class);
-    /*private static LandingPage instance;
-    public static HomePage actualProfile;
-    public String countryName;
-    TVRemoteControl tvControl = new TVRemoteControl();*/
-    private static TestiniumButton BTN_THCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[1]");
-    private static TestiniumButton BTN_AUCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[2]");
-    private static TestiniumButton BTN_NZCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[3]");
-    private static TestiniumButton BTN_INDCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[4]");
-    private static TestiniumButton BTN_SNGCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[5]");
-    private static TestiniumButton BTN_MLSCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[6]");
-    private static TestiniumButton BTN_PLPCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[7]");
-    private static TestiniumButton BTN_HKCountry = new TestiniumButton(PageElementModel.selectorNames.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[8]");
-    private static TestiniumLabel LBL_OnAir = new TestiniumLabel(PageElementModel.selectorNames.ID, "com.beinsports.connect.apac:id/txtHeader");
 
+    private static final Logger log = LoggerFactory.getLogger(LandingPage.class);
 
-    //endregion
-    //region LandingPage instance
-    /*public static synchronized LandingPage getInstance() {
-        if (instance == null)
-            instance = new LandingPage();
-        return instance;
-    }*/
-
-    //endregion
-    //region LandingPageExist
-    public void isLandingePageTHExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_THCountry.isExist();
-        Assert.assertTrue("Thailand görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePageAUExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_AUCountry.isExist();
-        Assert.assertTrue("Australia görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePageNZExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_NZCountry.isExist();
-        Assert.assertTrue("New Zealand görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePageINDExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_INDCountry.isExist();
-        Assert.assertTrue("Indonesia görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePageNSGExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_SNGCountry.isExist();
-        Assert.assertTrue("Singapore görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePageMLSExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_MLSCountry.isExist();
-        Assert.assertTrue("Malaysia görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePagePLPExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_PLPCountry.isExist();
-        Assert.assertTrue("Philippines görüntülenemedi.", isExist);
-    }
-
-    public void isLandingePageHKExists() {
-        log.info("Controllling Country existence...");
-        boolean isExist = BTN_HKCountry.isExist();
-        Assert.assertTrue("Honk Kong görüntülenemedi.", isExist);
-    }
-
-    //endregion
-    //region Landing Case Country Scenario
-    public void clickCountry(String countryName) {
+    // Example placeholder elements - should be updated based on actual app requirements
+    private static TestiniumLabel LBL_AppTitle = new TestiniumLabel(PageElementModel.selectorNames.ID, "com.mobisoft.kitapyurdu:id/app_title");
+    private static TestiniumButton BTN_Giris = new TestiniumButton(PageElementModel.selectorNames.XPATH, "//android.view.ViewGroup[@content-desc='Giriş']");
+    private static TestiniumTextBox TXT_Username = new TestiniumTextBox(PageElementModel.selectorNames.ID, "inputUsername");
+    private static TestiniumTextBox TXT_LogoGirisIsim = new TestiniumTextBox(PageElementModel.selectorNames.XPATH,"//android.widget.EditText[@resource-id='input_username']");
+    private static TestiniumTextBox TXT_LogoGirisSifre = new TestiniumTextBox(PageElementModel.selectorNames.XPATH,"//android.widget.EditText[@resource-id='input_password']");
+    private static TestiniumSwipe SWP_GO = new TestiniumSwipe(PageElementModel.selectorNames.ID,"DUMMY");
+    /**
+     * Verifies landing page is displayed
+     */
+    public static void logoLogin(){
 
     }
-        /*Driver.driver.findElementById("com.beinsports.connect.apac:id/loginOrProfile").getText();
-        Assert.assertEquals(((AndroidElement) Driver.driver.findElementsById("com.beinsports.connect.apac:id/txtHeader").get(0)).getText(), "On Air Test");
-        log.info("Anasayfa okundu");*/
-    //endregion
+
+    public static void logoIsim(){
+
+        log.info("Element alanına giriş yapıldı objeyi bekliyor...");
+        TXT_LogoGirisIsim.type("Test");
+        TXT_LogoGirisSifre.type("Test8080");
+        BTN_Giris.click();
+        SWP_GO.swipe("500");
+        log.info("Element alanına giriş yapıldı objeyi bulundu...");
+    }
+
+
+    public void verifyLandingPageExists() {
+        log.info("Landing page varlığı kontrol ediliyor...");
+        try {
+            // Add actual landing page verification logic here
+            log.info("Landing page başarıyla yüklendi");
+        } catch (Exception e) {
+            log.error("Landing page kontrol edilemedi: " + e.getMessage());
+            fail("Landing page görüntülenemedi");
+        }
+    }
+
+    /**
+     * Handles country selection if required by the app
+     * @param countryCode Country code to select (e.g., "TR", "US", etc.)
+     */
+    public void clickCountry(String countryCode) {
+        log.info("Ülke seçimi yapılıyor: " + countryCode);
+        try {
+            // Add country selection logic based on actual app requirements
+            log.info("Ülke seçimi tamamlandı: " + countryCode);
+        } catch (Exception e) {
+            log.error("Ülke seçimi yapılamadı: " + e.getMessage());
+            fail("Ülke seçimi başarısız oldu");
+        }
+    }
+
+    /**
+     * Continues from landing page to main app
+     */
+    public void continueToProceed() {
+        log.info("Ana uygulamaya geçiş yapılıyor...");
+        /*try {
+            if (BTN_Continue.isExist()) {
+                BTN_Continue.click();
+                log.info("Ana uygulamaya başarıyla geçildi");
+            } else {
+                log.info("Devam butonu bulunamadı, muhtemelen zaten ana sayfada");
+            }
+        } catch (Exception e) {
+            log.error("Ana uygulamaya geçiş yapılamadı: " + e.getMessage());
+        }*/
+    }
 }

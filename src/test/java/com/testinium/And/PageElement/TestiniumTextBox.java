@@ -2,11 +2,11 @@ package com.testinium.And.PageElement;
 
 import com.testinium.And.Backend.MobileAutomationException;
 import org.openqa.selenium.WebElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestiniumTextBox extends PageElementModel {
-    private static final Log log = LogFactory.getLog(TestiniumTextBox.class);
+    private static final Logger log = LoggerFactory.getLogger(TestiniumTextBox.class);
     public TestiniumTextBox(selectorNames selectorName, String selectorValue) {
         super(selectorName, selectorValue);
     }

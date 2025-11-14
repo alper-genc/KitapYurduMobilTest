@@ -1,12 +1,12 @@
 package com.testinium.And.Util.DBQuery;
 
 /*import com.bein.AndTV.Model.TVFormat;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AutomationDBUtil extends MySqlConnection {
     private static AutomationDBUtil instance;
-    private static final Log log = LogFactory.getLog(AutomationDBUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(AutomationDBUtil.class);
 
     public static synchronized AutomationDBUtil getInstance(){
         if (instance == null)

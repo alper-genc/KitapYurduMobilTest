@@ -3,10 +3,11 @@ package com.testinium.And.Pages;
 import com.testinium.And.Backend.TestiniumAutomationContext;
 import com.testinium.And.Backend.ContextKeys;
 import com.testinium.And.Util.Driver.Driver;
-import io.appium.java_client.TouchAction;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Assert;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -21,7 +22,7 @@ import java.util.Set;
 
 public abstract class TestiniumMasterPage {
 
-    private static final Log log = LogFactory.getLog(TestiniumMasterPage.class);
+    private static final Logger log = LoggerFactory.getLogger(TestiniumMasterPage.class);
 
     public void switchToTestiniumWebView() {
         log.info("Switching to Testinium WebView...");
@@ -62,8 +63,14 @@ public abstract class TestiniumMasterPage {
         int swipeStartHeight = ((height * 80) / 100)-5;
         int swipeEndHeight = (height * 30) / 100;
 
-        TouchAction action = new TouchAction(Driver.driver);
-//        action.longPress(swipeStartWidth, swipeStartHeight).moveTo(swipeEndWidth, swipeEndHeight).release().perform();
+        // W3C Actions API kullanımı
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1);
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), swipeStartWidth, swipeStartHeight));
+        swipe.addAction(finger.createPointerDown(0));
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), swipeEndWidth, swipeEndHeight));
+        swipe.addAction(finger.createPointerUp(0));
+        Driver.driver.perform(java.util.Collections.singletonList(swipe));
 
     }
 
@@ -141,7 +148,7 @@ public abstract class TestiniumMasterPage {
             }
 
             // Ülke bulunamadıysa hata fırlatın.
-            Assert.assertTrue("Aranan kriterde ülke bulunamadı", isFound);
+            assertThat(isFound).as("Aranan kriterde ülke bulunamadı").isTrue();
         } catch (Exception e) {
             // Hata yönetimi
             log.error("Ülke seçimi sırasında hata oluştu:", e);
@@ -163,10 +170,14 @@ public abstract class TestiniumMasterPage {
         int swipeStartHeight = (height * 80) / 100;
         int swipeEndHeight = (height * 30) / 100;
 
-        TouchAction action = new TouchAction(Driver.driver);
-/*
-        action.press(swipeStartWidth, swipeStartHeight).moveTo((swipeEndWidth - swipeStartWidth), (swipeEndHeight-swipeStartHeight)).release().perform();
-*/
+        // W3C Actions API kullanımı
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1);
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(0), PointerInput.Origin.viewport(), swipeStartWidth, swipeStartHeight));
+        swipe.addAction(finger.createPointerDown(0));
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), swipeEndWidth, swipeEndHeight));
+        swipe.addAction(finger.createPointerUp(0));
+        Driver.driver.perform(java.util.Collections.singletonList(swipe));
     }
 
     public String getARandomMail(){

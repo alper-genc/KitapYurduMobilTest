@@ -1,7 +1,11 @@
 package com.testinium.And.Util.Driver;
 
 import com.testinium.And.Backend.TestiniumAutomationContext;
-import com.thoughtworks.gauge.*;
+import io.cucumber.java.Before;
+import io.cucumber.java.After;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.Scenario;
 import io.appium.java_client.android.AndroidDriver;
 import java.net.MalformedURLException;
 import java.text.ParseException;
@@ -14,37 +18,48 @@ import com.testinium.And.Util.Report.ExcelUtil;
 public class Driver {
     public static AndroidDriver driver; // Generic AppiumDriver yerine AndroidDriver
 
-    @BeforeSuite
-    public void initializeDriver() throws MalformedURLException {
-        driver = DriverFactory.getDriver(); // DriverFactory'den güncellenmiş şekilde driver alma
-        //TODO TİME DURATİON CHECK
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+    @BeforeAll
+    public static void initializeDriver() throws MalformedURLException {
+        driver = DriverFactory.getDriver(); // DriverFactory'den driver alma (implicit wait içinde ayarlanıyor)
+        
+        // Tüm testler başlamadan önce uygulama reset et (sadece bir kere)
+
+      /*  try {
+            String packageName = "com.mobisoft.kitapyurdu";
+            
+            // Uygulamayı kapat
+            driver.terminateApp(packageName);
+            Thread.sleep(1000); // Kapatmak için biraz bekle
+            
+            // Uygulamayı tekrar aç
+            driver.activateApp(packageName);
+            Thread.sleep(2000); // Açılmak için biraz bekle
+            
+            System.out.println("Tüm testler başlamadan önce uygulama reset edildi: " + packageName);
+        } catch (Exception e) {
+            System.out.println("Uygulama reset edilirken hata: " + e.getMessage());
+        }*/
     }
 
-    @BeforeScenario
-    public void beforeScenario(ExecutionContext executionContext) {
+    @Before
+    public void beforeScenario(Scenario scenario) {
         TestiniumAutomationContext.initializeContext();
-        TestiniumAutomationContext.addContext(ContextKeys.CASENAME, executionContext.getCurrentScenario().getName());
+        TestiniumAutomationContext.addContext(ContextKeys.CASENAME, scenario.getName());
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         TestiniumAutomationContext.addContext(ContextKeys.STARTTIME, sdf.format(Calendar.getInstance().getTime()));
     }
 
-    @BeforeStep
-    public void beforeStep(ExecutionContext executionContext){
-        TestiniumAutomationContext.addContext(ContextKeys.STEPNAME, executionContext.getCurrentStep().getText());
-    }
-
-    @AfterScenario
-    public void afterScenario(ExecutionContext executionContext) {
+    @After
+    public void afterScenario(Scenario scenario) {
         String currentContext = driver.getContext();
         if (!currentContext.equals("NATIVE_APP")) {
             driver.context("NATIVE_APP");
         }
 
         ExcelUtil excelUtil = ExcelUtil.getInstance();
-        String domain = executionContext.getCurrentSpecification().getName();
-        String testCase = executionContext.getCurrentScenario().getName();
-        boolean isFailed = executionContext.getCurrentScenario().getIsFailing();
+        String domain = "Mobile Test Suite"; // Cucumber'da specification name yerine sabit değer
+        String testCase = scenario.getName();
+        boolean isFailed = scenario.isFailed();
         String message = TestiniumAutomationContext.getContextValue(ContextKeys.EXCEPTION);
         String ssLink = TestiniumAutomationContext.getContextValue(ContextKeys.SSLINK);
         String loginData = TestiniumAutomationContext.getContextValue(ContextKeys.EMAIL);
@@ -65,10 +80,12 @@ public class Driver {
 
     }
 
-    @AfterSuite
-    public void closeDriver() {
+    @AfterAll
+    public static void closeDriver() {
+        // Test bitince uygulamayı kapatmıyoruz, açık bırakıyoruz
         if (driver != null) {
-            driver.quit(); // Driver nesnesi null değilse kapat.
+            System.out.println("Testler tamamlandı, uygulama açık bırakılıyor...");
+            // driver.quit(); // Bu satırı kaldırdık - uygulama açık kalacak
         }
     }
 }
