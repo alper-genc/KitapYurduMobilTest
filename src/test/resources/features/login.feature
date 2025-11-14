@@ -3,4 +3,12 @@ Feature: Mobil Uygulama Test Senaryoları
 
   @tag1 @tag2
   Scenario: Temel kontrol senaryosu
-    Given Örnek test case'i çalıştır 
+    Given Örnek test case'i çalıştır
+
+
+
+
+
+
+
+
