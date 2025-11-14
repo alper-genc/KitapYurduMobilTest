@@ -10,7 +10,6 @@ import io.appium.java_client.android.AndroidDriver;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Calendar;
 import com.testinium.And.Backend.ContextKeys;
 import com.testinium.And.Util.Report.ExcelUtil;
@@ -51,9 +50,15 @@ public class Driver {
 
     @After
     public void afterScenario(Scenario scenario) {
-        String currentContext = driver.getContext();
-        if (!currentContext.equals("NATIVE_APP")) {
-            driver.context("NATIVE_APP");
+        if (driver != null) {
+            try {
+                String currentContext = driver.getContext();
+                if (currentContext != null && !currentContext.equals("NATIVE_APP")) {
+                    driver.context("NATIVE_APP");
+                }
+            } catch (Exception e) {
+                System.err.println("Context değiştirilirken hata: " + e.getMessage());
+            }
         }
 
         ExcelUtil excelUtil = ExcelUtil.getInstance();

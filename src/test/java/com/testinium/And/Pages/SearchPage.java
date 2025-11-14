@@ -56,9 +56,12 @@ public class SearchPage extends TestiniumMasterPage {
         log.info("Arama kutusuna metin yazılıyor: " + searchText);
         try {
             // Kısa bir bekleme ekle (sayfa yüklenmesi için)
-            waitFor(2);
+            Thread.sleep(2000);
             TXT_AramaKutusu.type(searchText);
             log.info("Arama kutusuna metin yazıldı: " + searchText);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Bekleme sırasında kesinti: " + e.getMessage());
         } catch (Exception e) {
             log.error("Arama kutusuna metin yazılamadı: " + e.getMessage());
             fail("Arama kutusuna metin yazılamadı: " + e.getMessage());

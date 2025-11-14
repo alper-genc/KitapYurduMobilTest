@@ -48,19 +48,28 @@ public class DriverFactory {
 
         // Uygulama bilgileri
         options.setAppPackage(properties.getProperty("app.package"));
-        // Activity belirtmiyoruz - Appium otomatik launcher activity'sini bulacak
+        // Activity belirtiyoruz - Uygulamanın açılması için gerekli
+        String appActivity = properties.getProperty("app.activity", "com.mobisoft.kitapyurdu.main.SplashActivity");
+        if (appActivity != null && !appActivity.isEmpty()) {
+            options.setAppActivity(appActivity);
+        }
         
         // Otomasyon motoru
         options.setAutomationName(properties.getProperty("android.automation.name"));
         
-        // Uygulama otomatik açılmasın, biz manuel kontrol edeceğiz
+        // Uygulama ayarları
         options.setNoReset(false);     // Uygulamayı otomatik açma
         options.setFullReset(false);  // Tam reset değil
         options.setNewCommandTimeout(Duration.ofSeconds(300));
         options.setAutoGrantPermissions(true);
         
+        // Timeout ayarları - Uygulama başlatma için daha fazla zaman
+        options.setUiautomator2ServerLaunchTimeout(Duration.ofSeconds(120)); // 120 saniye
+        options.setAndroidInstallTimeout(Duration.ofSeconds(120)); // APK yükleme timeout
+        
         // Appium'un launcher activity'sini otomatik bulmasını sağla
-        options.setAppWaitActivity("*");  // Herhangi bir activity'yi kabul et
+        // Activity belirtilmezse Appium otomatik bulur
+        // options.setAppWaitActivity("*");  // Bu satırı kaldırdık, sorun çıkarabilir
 
         // Appium server URL
         String serverUrl = properties.getProperty("appium.server.url");
@@ -69,6 +78,16 @@ public class DriverFactory {
         // Implicit wait ayarı
         int implicitWait = Integer.parseInt(properties.getProperty("implicit.wait", "10"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
+
+        // Uygulama zaten setAppActivity ile açılacak, ekstra activateApp gerekmez
+        // Ama emin olmak için bir bekleme ekleyelim
+        try {
+            Thread.sleep(3000); // Uygulamanın açılması için bekle
+            System.out.println("Uygulama açılıyor: " + properties.getProperty("app.package"));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Bekleme sırasında kesinti: " + e.getMessage());
+        }
 
         return driver;
     }
